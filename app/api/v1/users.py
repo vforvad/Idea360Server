@@ -8,4 +8,4 @@ class UsersResource(Resource):
 
     def get(self):
         users = User.query.all()
-        return { 'users': users_schema.dump(users) }
+        return { 'users': users_schema.dump(users).data }
