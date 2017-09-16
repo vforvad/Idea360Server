@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint
 from flask_restful import Resource, Api
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 import os
 import yaml
 
@@ -14,6 +14,7 @@ if os.path.isfile('secrets.yaml'):
 
 
 app.config.from_object(os.environ['APP_SETTINGS'])
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
 db = SQLAlchemy(app)
 
