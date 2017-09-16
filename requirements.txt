@@ -4,6 +4,7 @@ appnope==0.1.0
 click==6.7
 decorator==4.1.2
 Flask==0.12.2
+flask-marshmallow==0.8.0
 Flask-Migrate==2.1.1
 Flask-RESTful==0.3.6
 Flask-Script==2.0.6
@@ -16,6 +17,8 @@ jedi==0.10.2
 Jinja2==2.9.6
 Mako==1.0.7
 MarkupSafe==1.0
+marshmallow==2.13.6
+marshmallow-sqlalchemy==0.13.1
 pexpect==4.2.1
 pickleshare==0.7.4
 prompt-toolkit==1.0.15
