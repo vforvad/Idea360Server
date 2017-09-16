@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_restful import Resource, Api
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
@@ -23,4 +23,4 @@ class HelllWorld(Resource):
     def get(self):
         return { 'hello': 'world' }
 
-api.add_resource(HelllWorld, '/')
+api.add_resource(HelllWorld, '/api/v1/test')
