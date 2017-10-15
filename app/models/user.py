@@ -9,8 +9,9 @@ class User(db.Model):
     email = db.Column(db.String(), unique=True, nullable=False)
     first_name = db.Column(db.String())
     last_name = db.Column(db.String())
+    password_digest = db.Column(db.String())
 
-    def __init__(self, email, first_name=None, last_name=None):
+    def __init__(self, email, password=None, first_name=None, last_name=None):
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
