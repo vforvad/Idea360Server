@@ -23,4 +23,4 @@ class User(db.Model):
         """ Hash and store password """
 
         if password:
-            return bcrypt.hashpw(password, bcrypt.gensalt())
+            return bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
