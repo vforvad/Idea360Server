@@ -12,13 +12,11 @@ class BaseTestCase(unittest.TestCase):
     def _pre_setup(self):
         self.app = create_app(config_name="test")
         self.client = self.app.test_client
-
-        with self.app.app_context():
-            # create all tables
-            db.create_all()
+        self.app_context = self.app.app_context()
+        self.app_context.push()
+        db.create_all()
 
     def _post_teardown(self):
-        with self.app.app_context():
-            # drop all tables
-            db.session.remove()
-            db.drop_all()
+        db.session.remove()
+        db.drop_all()
+        self.app_context.pop()
