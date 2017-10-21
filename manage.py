@@ -3,7 +3,8 @@ import unittest
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 import yaml
-import nose
+from colour_runner.runner import ColourTextTestRunner
+from colour_runner.result import ColourTextTestResult
 
 from app import create_app, db
 
@@ -24,8 +25,12 @@ manager.add_command('db', MigrateCommand)
 @manager.command
 def test():
     """ Run tests without coverage """
-    args = ['--with-spec', '--spec-color']
-    nose.main()
+
+    tests = unittest.TestLoader().discover('./tests')
+    result = ColourTextTestRunner(verbosity=2).run(tests)
+    if result.wasSuccessful():
+        return 0
+    return 1
 
 if __name__ == '__main__':
     manager.run()
