@@ -1,5 +1,6 @@
 from . import BaseTestCase
 from app.forms.registration import RegistrationForm
+from tests.factories import UserFactory
 import ipdb
 
 class RegistrationFormTest(BaseTestCase):
@@ -20,3 +21,14 @@ class RegistrationFormTest(BaseTestCase):
 
         form = RegistrationForm()
         self.assertFalse(form.validate())
+
+    def test_user_already_exists(self):
+        """ Test failure if user already exists """
+
+        user = UserFactory()
+        form = RegistrationForm(data={
+            'email': user.email,
+            'password': 'Altair_69',
+            'password_confirmation': 'Altair_69'
+        })
+        self.assertFalse(form.submit())

@@ -2,6 +2,7 @@ from wtforms import Form, fields, validators
 import jwt
 import os
 from app.models import db, User
+import ipdb
 
 class RegistrationForm(Form):
     email = fields.StringField('email', [validators.DataRequired(), validators.Email()])
@@ -16,7 +17,7 @@ class RegistrationForm(Form):
         """ Perform registration """
 
         if not self.validate(): return False
-
+        
         try:
             user = User(email=self.email.data, password=self.password.data)
             db.session.add(user)
