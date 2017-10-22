@@ -26,6 +26,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     TESTING = True
     DEBUG = True
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/idea_360_test'
 
 app_config = {

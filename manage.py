@@ -23,10 +23,12 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
 @manager.command
-def test():
+def test(test_name=None):
     """ Run tests without coverage """
-
-    tests = unittest.TestLoader().discover('./tests')
+    if test_name is None:
+        tests = unittest.TestLoader().discover('./tests')
+    else:
+        tests = unittest.TestLoader().loadTestsFromName(test_name)
     result = ColourTextTestRunner(verbosity=2).run(tests)
     if result.wasSuccessful():
         return 0
