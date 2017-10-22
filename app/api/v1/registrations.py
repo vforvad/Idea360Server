@@ -1,7 +1,5 @@
-from flask import request, jsonify, make_response
-from flask_restful import Resource, reqparse
+from . import Resource, request
 from app.forms import RegistrationForm
-import json
 import ipdb
 
 class RegistrationsResource(Resource):

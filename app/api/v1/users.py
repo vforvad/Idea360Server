@@ -1,7 +1,5 @@
-from flask_restful import Resource
-from app.models import User
+from . import Resource, User
 from app.schemas import users_schema
-from flask import make_response
 
 class UsersResource(Resource):
     """ User API resource """
