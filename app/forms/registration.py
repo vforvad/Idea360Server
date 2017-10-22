@@ -1,8 +1,9 @@
 from wtforms import Form, fields, validators
+from app.models import db, User
+from app.services import encode_user
 import sqlalchemy
 import jwt
 import os
-from app.models import db, User
 import ipdb
 
 class RegistrationForm(Form):
@@ -13,7 +14,6 @@ class RegistrationForm(Form):
         validators.EqualTo('password', message='Does\'t match password')
     ])
 
-
     def submit(self):
         """ Perform registration """
 
@@ -23,9 +23,7 @@ class RegistrationForm(Form):
             user = User(email=self.email.data, password=self.password.data)
             db.session.add(user)
             db.session.commit()
-            secret_token = os.environ['JWT_SECRET']
-            token = jwt.encode({'id': user.id}, secret_token, 'HS256')
-            self.token = token
+            self.token = encode_user(user)
             return True
         except sqlalchemy.exc.IntegrityError:
             self.errors['user'] = ['User with this email already exists']
