@@ -1,4 +1,5 @@
 from wtforms import Form, fields, validators
+import sqlalchemy
 import jwt
 import os
 from app.models import db, User
@@ -17,7 +18,7 @@ class RegistrationForm(Form):
         """ Perform registration """
 
         if not self.validate(): return False
-        
+
         try:
             user = User(email=self.email.data, password=self.password.data)
             db.session.add(user)
@@ -26,5 +27,6 @@ class RegistrationForm(Form):
             token = jwt.encode({'id': user.id}, secret_token, 'HS256')
             self.token = token
             return True
-        except:
+        except sqlalchemy.exc.IntegrityError:
+            self.errors['user'] = ['User with this email already exists']
             return False

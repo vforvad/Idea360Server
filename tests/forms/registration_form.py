@@ -32,3 +32,4 @@ class RegistrationFormTest(BaseTestCase):
             'password_confirmation': 'Altair_69'
         })
         self.assertFalse(form.submit())
+        assert 'user' in form.errors
