@@ -30,4 +30,5 @@ class RegistrationViewTest(BaseTestCase):
             '/api/v1/registrations', data=json.dumps({}), content_type='application/json'
         )
         result = json.loads(res.data.decode())
+        assert res.status_code == 400
         assert 'errors' in result

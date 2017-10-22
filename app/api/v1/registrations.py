@@ -1,6 +1,7 @@
 from flask import request, jsonify, make_response
 from flask_restful import Resource, reqparse
 from app.forms import RegistrationForm
+import json
 import ipdb
 
 class RegistrationsResource(Resource):
@@ -13,5 +14,4 @@ class RegistrationsResource(Resource):
         if form.submit():
             return { 'token': str(form.token) }, 201
         else:
-            # ipdb.set_trace()
-            return { 'errors', str(form.errors) }, 400
+            return { 'errors': form.errors }, 400
