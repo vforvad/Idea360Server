@@ -10,3 +10,6 @@ class UserSchema(ma.Schema):
             'first_name',
             'last_name'
         ]
+
+user_schema = UserSchema()
+users_schema = UserSchema(many=True)

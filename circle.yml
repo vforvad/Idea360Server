@@ -1,0 +1,19 @@
+machine:
+  python:
+    version: 3.5.2
+
+  environment:
+    DATABASE_URL: postgresql://localhost/idea_360_test
+    APP_SETTINGS: test
+
+database:
+  override:
+    - createdb idea_360_test
+
+dependencies:
+  pre:
+    - pip install -r requirements.txt
+
+test:
+  override:
+    - python manage.py test

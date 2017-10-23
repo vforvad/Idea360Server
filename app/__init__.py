@@ -3,24 +3,18 @@ from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 import os
 import yaml
+import ipdb
 
+from config import app_config
 from app.api import api_v1_bp
 from app.models import db
 from app.schemas import ma
 
-
-def load_secrets():
-    if os.path.isfile('secrets.yaml'):
-        with open('secrets.yaml') as stream:
-            f = yaml.load(stream)
-            for k, v in f.items():
-                os.environ[k] = v
-
-def create_app():
+def create_app(config_name):
     """ Basic application creation """
-    load_secrets()
+
     app = Flask(__name__)
-    app.config.from_object(os.environ['APP_SETTINGS'])
+    app.config.from_object(app_config[config_name])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     ma.init_app(app)
