@@ -22,6 +22,18 @@ class RegistrationFormTest(BaseTestCase):
         form = RegistrationForm()
         self.assertFalse(form.validate())
 
+    def test_user_succesfully_created(self):
+        """ Test success creation of user """
+
+        form = RegistrationForm(data={
+            'email': 'vforvad@gmail.com',
+            'password': 'Altair_69',
+            'password_confirmation': 'Altair_69'
+        })
+        form.submit()
+        self.assertTrue(hasattr(form, 'token'))
+
+
     def test_user_already_exists(self):
         """ Test failure if user already exists """
 
