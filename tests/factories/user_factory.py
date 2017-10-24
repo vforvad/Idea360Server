@@ -9,5 +9,6 @@ class UserFactory(SQLAlchemyModelFactory):
         sqlalchemy_session = db.session
 
     email = 'example@mail.com'
+    password = '123456'
     first_name = 'First Name'
     last_name = 'Last name'

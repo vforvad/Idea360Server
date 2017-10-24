@@ -1,5 +1,6 @@
 from . import (
-    Form, fields, validators, User, sqlalchemy, encode_user
+    Form, fields, validators, db,
+    User, sqlalchemy, encode_user
 )
 
 
