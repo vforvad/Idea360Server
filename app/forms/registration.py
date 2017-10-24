@@ -1,6 +1,7 @@
-from . import Form, fields, validators, User
-from app.services import encode_user
-import sqlalchemy
+from . import (
+    Form, fields, validators, User, sqlalchemy, encode_user
+)
+
 
 class RegistrationForm(Form):
     email = fields.StringField('email', [validators.DataRequired(), validators.Email()])
