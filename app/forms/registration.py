@@ -1,5 +1,4 @@
-from wtforms import Form, fields, validators
-from app.models import db, User
+from . import Form, fields, validators, User
 from app.services import encode_user
 import sqlalchemy
 
