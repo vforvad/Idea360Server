@@ -6,7 +6,7 @@ class AuthorizationForm(Form):
     email = fields.StringField('email', [validators.DataRequired(), validators.Email()])
     password = fields.PasswordField('password', [validators.DataRequired()])
 
-    def submit():
+    def submit(self):
         """ Authorize user and return token """
 
         if not self.validate(): return False
