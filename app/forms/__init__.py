@@ -5,3 +5,4 @@ from app.models import db, User
 from app.services import encode_user
 
 from .registration import RegistrationForm
+from .authorization import AuthorizationForm
