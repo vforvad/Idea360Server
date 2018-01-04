@@ -10,10 +10,10 @@ from app.api import api_v1_bp
 from app.models import db
 from app.schemas import ma
 
-def create_app(config_name):
-    """ Basic application creation """
+def create_default_app(config_name):
+    """ Default application setting """
 
-    app = Flask(__name__)
+    app = Flask("{}_{}".format(__name__, config_name))
     app.config.from_object(app_config[config_name])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
@@ -21,3 +21,13 @@ def create_app(config_name):
     app.register_blueprint(api_v1_bp, url_prefix='/api/v1')
 
     return app
+
+def create_app():
+    """ Basic application creation """
+
+    return create_default_app(os.environ['APP_SETTINGS'])
+
+def create_test_app():
+    """ Testing application set up """
+
+    return create_default_app('test')

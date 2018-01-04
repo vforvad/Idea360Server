@@ -1,5 +1,6 @@
 import unittest
-from app import create_app, db
+from app import create_test_app, db
+import ipdb
 
 class BaseTestCase(unittest.TestCase):
     def __call__(self, result=None):
@@ -10,11 +11,11 @@ class BaseTestCase(unittest.TestCase):
             self._post_teardown()
 
     def _pre_setup(self):
-        self.app = create_app(config_name="test")
+        self.app = create_test_app()
         self.client = self.app.test_client
         self.app_context = self.app.app_context()
         self.app_context.push()
-        db.create_all()
+        db.create_all(app=self.app)
 
     def _post_teardown(self):
         db.session.remove()
