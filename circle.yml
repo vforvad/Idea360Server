@@ -13,5 +13,5 @@ jobs:
           name: Run tests
           command: |
             docker-compose up -d
-            docker-compose run app bash -c "python manage.py createdb test"
-            docker-compose run app bash -c "python manage.py test"
+            docker-compose run idea360 bash -c "python manage.py createdb test"
+            docker-compose run idea360 bash -c "python manage.py test"
