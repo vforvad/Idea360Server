@@ -5,8 +5,14 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
+    DB_NAME = 'idea360'
     SECRET_KEY = os.environ.get('JWT_SECRET')
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/idea_360'
+    SQLALCHEMY_ACCESS = 'postgresql://postgres:{}@postgres'.format(
+        os.environ.get('POSTGRES_PASSWORD')
+    )
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:{}@postgres/{}'.format(
+        os.environ.get('POSTGRES_PASSWORD'), DB_NAME
+    )
 
 
 class ProductionConfig(Config):
@@ -26,8 +32,11 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     TESTING = True
     DEBUG = False
+    DB_NAME = 'idea360_test'
     PRESERVE_CONTEXT_ON_EXCEPTION = False
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/idea_360_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:{}@postgres/{}'.format(
+        os.environ.get('POSTGRES_PASSWORD'), DB_NAME
+    )
 
 app_config = {
     'development': DevelopmentConfig,
