@@ -9,6 +9,7 @@ jobs:
           command: |
             touch .env
             echo "APP_SETTINGS=development" >> .env
+            echo "JWT_SECRET='1231412312' >> .env"
             pip install docker-compose==1.15.0
       - run:
           name: Run tests
