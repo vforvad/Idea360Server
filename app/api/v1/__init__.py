@@ -6,7 +6,9 @@ from app.models import User
 from .users import UsersResource
 from .registrations import RegistrationsResource
 from .current_user import CurrentUserResource
+from .authorization import AuthorizationResource
 
 api_v1.add_resource(UsersResource, '/users')
 api_v1.add_resource(RegistrationsResource, '/registrations')
+api_v1.add_resource(AuthorizationResource, '/authorizations')
 api_v1.add_resource(CurrentUserResource, '/users/current')

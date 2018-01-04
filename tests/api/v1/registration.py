@@ -1,6 +1,4 @@
-from tests.base_test_case import BaseTestCase
-import json
-import ipdb
+from . import BaseTestCase, json
 
 class RegistrationViewTest(BaseTestCase):
     """ Registration view test """

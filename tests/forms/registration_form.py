@@ -1,7 +1,5 @@
-from . import BaseTestCase
+from . import BaseTestCase, UserFactory
 from app.forms.registration import RegistrationForm
-from tests.factories import UserFactory
-import ipdb
 
 class RegistrationFormTest(BaseTestCase):
     """ RegistrationForm tests  """

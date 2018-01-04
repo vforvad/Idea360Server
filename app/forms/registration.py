@@ -1,7 +1,8 @@
-from wtforms import Form, fields, validators
-from app.models import db, User
-from app.services import encode_user
-import sqlalchemy
+from . import (
+    Form, fields, validators, db,
+    User, sqlalchemy, encode_user
+)
+
 
 class RegistrationForm(Form):
     email = fields.StringField('email', [validators.DataRequired(), validators.Email()])
