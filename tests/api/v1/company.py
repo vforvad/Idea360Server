@@ -21,7 +21,7 @@ class CompanyViewTest(BaseTestCase):
             'name': 'Company name',
             'description': 'description',
             'city': 'City',
-            'start_date': datetime.datetime.now()
+            'start_date': str(datetime.datetime.now())
         }
 
     def test_success_company_receiving(self):
@@ -43,3 +43,51 @@ class CompanyViewTest(BaseTestCase):
 
         for attribute in ['id', 'name', 'description']:
             assert getattr(self.company, attribute), res.data['companies'][attribute]
+
+    def test_succes_company_update(self):
+        """ Updates existing company """
+
+        res = self.client().put(
+            '/api/v1/companies/{}'.format(self.company.id),
+            data=json.dumps(self.params),
+            content_type='application/json',
+            headers={AUTH_HEADER: self.token}
+        )
+        assert res.status_code, 200
+
+    def test_updating_of_the_company(self):
+        """ Check changing of the company attributes """
+
+        res = self.client().put(
+            '/api/v1/companies/{}'.format(self.company.id),
+            data=json.dumps(self.params),
+            content_type='application/json',
+            headers={AUTH_HEADER: self.token}
+        )
+        assert self.company.name, self.params['name']
+
+    def test_failed_updating_of_the_company(self):
+        """ Test failed company update """
+
+        res = self.client().put(
+            '/api/v1/companies/{}'.format(self.company.id),
+            data=json.dumps(None),
+            content_type='application/json',
+            headers={AUTH_HEADER: self.token}
+        )
+        assert res.status_code, 400
+
+    def test_failed_updating_of_the_company_attributes(self):
+        """ Test failed company update attributes """
+
+        res = self.client().put(
+            '/api/v1/companies/{}'.format(self.company.id),
+            data=json.dumps(None),
+            content_type='application/json',
+            headers={AUTH_HEADER: self.token}
+        )
+        response_data = json.loads(res.data)
+
+        assert 'errors' in response_data, True
+        for attribute in ['name']:
+            assert 'name' in response_data['errors']

@@ -14,12 +14,13 @@ class CompanyResource(Resource):
         company = Company.query.get(company_id)
         return { 'company': single.dump(company).data }, 200
 
+    @authenticate
     def put(self, company_id):
         """ Update existing company """
 
         company = Company.query.get(company_id)
-        form = CompanyForm(obj=company, data=response.get_json())
+        form = CompanyForm(obj=company, data=request.get_json())
         if form.submit():
-            return { 'company': single.dump(company).data }, 200
+            return { 'company': single_schema.dump(company).data }, 200
         else:
             return { 'errors': form.errors }, 400

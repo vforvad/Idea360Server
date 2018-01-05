@@ -2,6 +2,7 @@ from . import (
     Form, fields, validators, db,
     Company, sqlalchemy
 )
+import ipdb
 
 class CompanyForm(Form):
     """ Form object for creating the company """
@@ -10,6 +11,10 @@ class CompanyForm(Form):
     description = fields.StringField('description')
     start_date = fields.DateField('start_date', format='%d-%m-%Y')
     city = fields.StringField('city')
+
+    def __init__(self, obj, *args, **kwargs):
+        self.obj = obj
+        super(CompanyForm, self).__init__(*args, **kwargs)
 
     def submit(self):
         """ Create new company instance """
@@ -23,10 +28,12 @@ class CompanyForm(Form):
             'city': self.city.data
         }
         if self.obj:
+            db.session.query(Company).filter_by(
+                id=self.obj.id).update(values=params)
             company = self.obj
         else:
             company = Company(**params)
-        db.session.add(company)
+            db.session.add(company)
         db.session.commit()
         self.object = company
         return True
