@@ -18,7 +18,7 @@ def authenticate(func):
                 return func(*args, **kwargs)
             else:
                 return { 'error': 'Unauthorized' }, 401
-        except:
+        except (KeyError, jwt.exceptions.DecodeError):
             return { 'error': 'Unauthorized' }, 401
     return wrapper
 

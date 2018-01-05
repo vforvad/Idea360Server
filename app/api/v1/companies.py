@@ -1,8 +1,9 @@
 from . import Resource, request, Company
 from app.schemas import CompanySchema
 from app.forms import CompanyForm
+from app.services.authentication import authenticate
 
-list_schema = CompanySchema(only=['id', 'name', 'created_at'])
+list_schema = CompanySchema(only=['id', 'name', 'created_at'], many=True)
 single_schema = CompanySchema()
 
 class CompaniesResource(Resource):
@@ -14,6 +15,7 @@ class CompaniesResource(Resource):
         companies = Company.query.all()
         return { 'companies': list_schema.dump(companies).data }, 200
 
+    @authenticate
     def post(self):
         """ Creates new company """
 

@@ -1,4 +1,4 @@
-from . import SQLAlchemyModelFactory, db
+from . import SQLAlchemyModelFactory, Sequence, db
 from app.models import User
 
 class UserFactory(SQLAlchemyModelFactory):

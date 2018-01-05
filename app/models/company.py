@@ -13,11 +13,3 @@ class Company(db.Model):
     city = db.Column(db.String())
     created_at = db.Column(db.DateTime(), default=datetime.datetime.now)
     updated_at = db.Column(db.DateTime(), onupdate=datetime.datetime.now)
-
-    def __init__(self, name, description=None, start_date=None, city=None):
-        """ Model constructor """
-
-        self.name = name
-        self.description = description
-        self.start_date = start_date
-        self.city = city

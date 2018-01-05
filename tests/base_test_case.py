@@ -15,6 +15,7 @@ class BaseTestCase(unittest.TestCase):
         self.client = self.app.test_client
         self.app_context = self.app.app_context()
         self.app_context.push()
+        self.db = db
         db.create_all()
 
     def _post_teardown(self):
