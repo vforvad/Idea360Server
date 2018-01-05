@@ -6,4 +6,4 @@ from tests.factories import UserFactory, CompanyFactory
 
 from .registration import RegistrationViewTest
 from .authorization import AuthorizationViewTest
-from .company import CompanyViewTest
+from .companies import CompaniesViewTest

@@ -22,7 +22,10 @@ class CompanyForm(Form):
             'start_date': self.start_date.data,
             'city': self.city.data
         }
-        company = Company(**params)
+        if self.obj:
+            company = self.obj
+        else:
+            company = Company(**params)
         db.session.add(company)
         db.session.commit()
         self.object = company
