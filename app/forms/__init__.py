@@ -6,3 +6,4 @@ from app.services import encode_user
 
 from .registration import RegistrationForm
 from .authorization import AuthorizationForm
+from .company import CompanyForm

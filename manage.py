@@ -5,7 +5,7 @@ from flask_migrate import Migrate, MigrateCommand
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import yaml
-from colour_runner.runner import ColourTextTestRunner
+from colour_runner.runner import k
 from colour_runner.result import ColourTextTestResult
 from config import app_config
 from app import create_app, db
@@ -23,13 +23,10 @@ def test(test_name=None):
     """ Run tests without coverage """
 
     if test_name is None:
-        tests = unittest.TestLoader().discover('./tests')
+        tests = unittest.TestLoader().discover('tests')
     else:
         tests = unittest.TestLoader().loadTestsFromName(test_name)
-    result = ColourTextTestRunner(verbosity=2).run(tests)
-    if result.wasSuccessful():
-        return 0
-    return 1
+    ColourTextTestRunner(verbosity=2).run(tests)
 
 @manager.command
 def createdb(name):
