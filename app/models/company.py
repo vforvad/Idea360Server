@@ -17,7 +17,7 @@ class Company(db.Model):
     def __init__(self, name, description=None, start_date=None, city=None):
         """ Model constructor """
 
-        self.name = na,e
+        self.name = name
         self.description = description
         self.start_date = start_date
         self.city = city

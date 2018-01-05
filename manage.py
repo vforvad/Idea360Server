@@ -5,7 +5,7 @@ from flask_migrate import Migrate, MigrateCommand
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import yaml
-from colour_runner.runner import k
+from colour_runner.runner import ColourTextTestRunner
 from colour_runner.result import ColourTextTestResult
 from config import app_config
 from app import create_app, db
