@@ -13,11 +13,10 @@ class User(db.Model):
     last_name = db.Column(db.String())
     password_digest = db.Column(db.String(), nullable=False)
 
-    def __init__(self, email, password, first_name=None, last_name=None):
-        self.email = email
+    def __init__(self, **kwargs):
+        password = kwargs.pop('password', None)
+        super(User, self).__init__(**kwargs)
         self.password_digest = self.set_password(password)
-        self.first_name = first_name
-        self.last_name = last_name
 
     def set_password(self, password):
         """ Hash and store password """
