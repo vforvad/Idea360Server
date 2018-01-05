@@ -7,3 +7,4 @@ from tests.factories import UserFactory, CompanyFactory
 from .registration import RegistrationViewTest
 from .authorization import AuthorizationViewTest
 from .companies import CompaniesViewTest
+from .company import CompanyViewTest

@@ -24,3 +24,11 @@ class CompanyResource(Resource):
             return { 'company': single_schema.dump(company).data }, 200
         else:
             return { 'errors': form.errors }, 400
+
+    @authenticate
+    def delete(self, company_id):
+        """ Delete existing company """
+
+        company = Company.query.filter_by(id=company_id)
+        company.delete()
+        return { }, 204

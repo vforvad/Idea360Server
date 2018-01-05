@@ -12,8 +12,8 @@ class CompanyForm(Form):
     start_date = fields.DateField('start_date', format='%d-%m-%Y')
     city = fields.StringField('city')
 
-    def __init__(self, obj, *args, **kwargs):
-        self.obj = obj
+    def __init__(self, *args, **kwargs):
+        self.obj = kwargs.get('obj', None)
         super(CompanyForm, self).__init__(*args, **kwargs)
 
     def submit(self):
