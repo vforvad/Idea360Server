@@ -16,6 +16,7 @@ def create_default_app(config_name):
     app = Flask("{}_{}".format(__name__, config_name))
     app.config.from_object(app_config[config_name])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
     db.init_app(app)
     ma.init_app(app)
     app.register_blueprint(api_v1_bp, url_prefix='/api/v1')

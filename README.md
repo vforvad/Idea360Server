@@ -11,6 +11,7 @@ For starting project run `docker-compose run --rm --service-ports idea360`
 
 * `FLASK_APP=manage.py flask db migrate`
 * `FLASK_APP=manage.py flask db upgrade`
+* `FLASK_APP=manage.py flask db downgrade` - rollback
 
 ## Tests
 

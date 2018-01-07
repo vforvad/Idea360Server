@@ -1,7 +1,7 @@
 from wtforms import Form, fields, validators
 import sqlalchemy
 
-from app.models import db, User, Company
+from app.models import db, User, Company, CompanyUser
 from app.services import encode_user
 
 from .registration import RegistrationForm
