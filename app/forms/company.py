@@ -44,7 +44,7 @@ class CompanyForm(Form):
             'city': self.city.data
         }
         if self.obj:
-            db.session.query(Company).filter_by(
+            company = db.session.query(Company).filter_by(
                 id=self.obj.id).update(values=params)
         else:
             company = Company(**params)
