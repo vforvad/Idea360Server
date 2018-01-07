@@ -1,5 +1,4 @@
 from . import db
-from .company_user import company_users
 import datetime
 
 class Company(db.Model):
@@ -15,5 +14,4 @@ class Company(db.Model):
     created_at = db.Column(db.DateTime(), default=datetime.datetime.now)
     updated_at = db.Column(db.DateTime(), onupdate=datetime.datetime.now)
 
-    employees = db.relationship('User', secondary=company_users, lazy='subquery',
-                                backref=db.backref('companies', lazy=True))
+    employees = db.relationship('CompanyUser', backref=db.backref('companies', lazy=True))

@@ -2,6 +2,7 @@ from . import (
     Form, fields, validators, db,
     Company, sqlalchemy
 )
+from flask import g
 import ipdb
 
 class CompanyForm(Form):
