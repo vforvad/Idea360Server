@@ -1,10 +1,18 @@
-from . import BaseTestCase, CompanyFactory
+from . import BaseTestCase, UserFactory, CompanyFactory, g
 from app.forms.company import CompanyForm
 from app.models import Company
 import datetime
+import ipdb
 
 class CompanyFormTest(BaseTestCase):
     """ CompanyForm tests """
+
+    def setUp(self):
+        """ Setting up test dependencies """
+
+        self.user = UserFactory()
+        self.company = CompanyFactory()
+        g.current_user = self.user
 
     def test_success_validation(self):
         """ Test success form validation """

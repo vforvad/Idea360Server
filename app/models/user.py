@@ -13,6 +13,8 @@ class User(db.Model):
     last_name = db.Column(db.String())
     password_digest = db.Column(db.String(), nullable=False)
 
+    companies = db.relationship('CompanyUser', backref=db.backref('users', lazy=True))
+
     def __init__(self, **kwargs):
         password = kwargs.pop('password', None)
         super(User, self).__init__(**kwargs)

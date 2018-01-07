@@ -13,3 +13,5 @@ class Company(db.Model):
     city = db.Column(db.String())
     created_at = db.Column(db.DateTime(), default=datetime.datetime.now)
     updated_at = db.Column(db.DateTime(), onupdate=datetime.datetime.now)
+
+    employees = db.relationship('CompanyUser', backref=db.backref('companies', lazy=True))
