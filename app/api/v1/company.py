@@ -20,7 +20,7 @@ class CompanyResource(Resource):
         """ Update existing company """
 
         company = get_object_or_404(Company, company_id)
-        form = CompanyForm(obj=company, data=request.get_json())
+        form = CompanyForm(obj=company, params=request.get_json())
         if form.submit():
             return { 'company': single_schema.dump(company).data }, 200
         else:

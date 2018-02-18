@@ -12,7 +12,6 @@ from config import app_config
 from app import create_app, db
 import ipdb
 
-
 app = create_app()
 migrate = Migrate(app, db)
 manager = Manager(app)
