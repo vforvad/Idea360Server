@@ -2,6 +2,17 @@ import abc
 import cerberus
 from cerberus import Validator
 from contextlib import contextmanager
+import ipdb
+
+class BaseValidator(Validator):
+    """ Custom implementation of the cerberus Validator class """
+
+    def _validate_equal(self, equal, field, value):
+        """ Validate the equation of one field to another """
+
+        match_field, match_value = self._lookup_field(equal)
+        if value != match_value:
+            self._error(field, 'Does not match the {}'.format(match_field))
 
 class FormException(Exception):
     """ Form exception class """
@@ -36,7 +47,7 @@ class BaseForm(abc.ABC):
         if not self.schema:
             raise NotImplementedError('Subclasses must define schema property')
 
-        self.validator = Validator(self.schema)
+        self.validator = BaseValidator(self.schema)
         self.obj = kwargs.get('obj', None)
         self.params = kwargs.get('params', None)
 
@@ -52,9 +63,3 @@ class BaseForm(abc.ABC):
         except cerberus.validator.DocumentError:
             self.errors['base'] =  ['Invalid structure']
             return False
-
-    @contextmanager
-    def submit(self, message=None):
-        """ Save object to the database """
-
-        if not self.is_valid(): return False

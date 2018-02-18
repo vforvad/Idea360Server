@@ -18,3 +18,4 @@ For starting project run `docker-compose run --rm --service-ports idea360`
 * For setting up need to perform `python manage.py createdb test` in order to
 populate test database
 * `python manage.py test` - runs unittest tests
+* `python manage.py test -t tests.*` - run specific test, where `*` - path

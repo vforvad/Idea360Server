@@ -1,24 +1,45 @@
 from . import (
-    Form, fields, validators, db,
+    BaseForm, fields, validators, db,
     User, sqlalchemy, encode_user
 )
+import ipdb
 
+def password_confirmation(field, value, error):
+    """ Validates whether or not the password is equal to password confirmation"""
 
-class RegistrationForm(Form):
-    email = fields.StringField('email', [validators.DataRequired(), validators.Email()])
-    password = fields.PasswordField('password', [validators.DataRequired()])
-    password_confirmation = fields.PasswordField('password_confirmation', [
-        validators.DataRequired(),
-        validators.EqualTo('password', message='Does\'t match password')
-    ])
+    if self.params['password'] != value:
+        error(field, 'does not match the password')
+
+class RegistrationForm(BaseForm):
+    schema = {
+        'email': {
+            'type': 'string',
+            'empty': False,
+            'required': True,
+            'regex': '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        },
+        'password': {
+            'type': 'string',
+            'empty': False,
+            'required': True
+        },
+        'password_confirmation': {
+            'type': 'string',
+            'empty': False,
+            'required': True,
+            'equal': 'password'
+        }
+    }
 
     def submit(self):
         """ Perform registration """
-
-        if not self.validate(): return False
+        
+        if not self.is_valid(): return False
 
         try:
-            user = User(email=self.email.data, password=self.password.data)
+            email = self.params.get('email')
+            password = self.params.get('password')
+            user = User(email=email, password=password)
             db.session.add(user)
             db.session.commit()
             self.token = encode_user(user)
