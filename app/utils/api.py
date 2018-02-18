@@ -1,4 +1,6 @@
-ERROR_404 = { 'error': 'Object does not exist' }, 404
+from . import abort
+
+ERROR_404 = 'Object does not exist'
 
 def get_object_or_404(klass, id):
     """
@@ -12,6 +14,6 @@ def get_object_or_404(klass, id):
         if instance:
             return instance
         else:
-            return ERROR_404
+            abort(404, ERROR_404)
     except:
-        return ERROR_404
+        abort(404, ERROR_404)
