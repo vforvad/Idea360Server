@@ -1,6 +1,5 @@
 from . import (
-    BaseForm, fields, validators, db,
-    User, sqlalchemy, encode_user
+    BaseForm, db, User, sqlalchemy, encode_user
 )
 import ipdb
 
@@ -33,7 +32,7 @@ class RegistrationForm(BaseForm):
 
     def submit(self):
         """ Perform registration """
-        
+
         if not self.is_valid(): return False
 
         try:

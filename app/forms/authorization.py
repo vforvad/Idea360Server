@@ -1,24 +1,36 @@
-from . import Form, fields, validators, User, sqlalchemy, encode_user
+from . import BaseForm, fields, validators, User, sqlalchemy, encode_user
 
-class AuthorizationForm(Form):
+class AuthorizationForm(BaseForm):
     """ Form for user authorization """
 
-    email = fields.StringField('email', [validators.DataRequired(), validators.Email()])
-    password = fields.PasswordField('password', [validators.DataRequired()])
+    schema = {
+        'email': {
+            'type': 'string',
+            'empty': False,
+            'required': True,
+            'regex': '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        },
+        'password': {
+            'type': 'string',
+            'empty': False,
+            'required': True
+        }
+    }
 
     def submit(self):
         """ Authorize user and return token """
 
-        if not self.validate(): return False
+        if not self.is_valid(): return False
 
         try:
-            user = User.query.filter_by(email=self.email.data).one()
-            if user.authenticate(self.password.data):
+            email = self.params.get('email')
+            password = self.params.get('password')
+            user = User.query.filter_by(email=email).one()
+            if user.authenticate(password):
                 self.token = encode_user(user)
                 return True
             else:
                 raise sqlalchemy.orm.exc.NoResultFound()
-
         except sqlalchemy.orm.exc.NoResultFound:
             return self._error_message('There is no such user')
 
