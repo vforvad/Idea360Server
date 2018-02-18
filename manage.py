@@ -4,6 +4,7 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import ProgrammingError
 import yaml
 from colour_runner.runner import ColourTextTestRunner
 from colour_runner.result import ColourTextTestResult
@@ -41,6 +42,9 @@ def createdb(name):
         session.connection().connection.set_isolation_level(1)
     except KeyError:
         print('Environment of type {} does not exist'.format(name))
+    except ProgrammingError:
+        config_class = app_config[name]
+        print('Database {} already exist'.format(config_class.DB_NAME))
 
 if __name__ == '__main__':
     manager.run()
