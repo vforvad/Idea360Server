@@ -7,7 +7,7 @@ class RegistrationsResource(Resource):
     def post(self):
         """ receive user params and create a new user """
 
-        form = RegistrationForm(data=request.get_json())
+        form = RegistrationForm(params=request.get_json())
         if form.submit():
             return { 'token': str(form.token) }, 201
         else:

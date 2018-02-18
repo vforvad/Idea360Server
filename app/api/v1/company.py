@@ -2,6 +2,7 @@ from . import Resource, request, Company
 from app.schemas import CompanySchema
 from app.forms import CompanyForm
 from app.services.authentication import authenticate
+from app.utils import get_object_or_404
 
 single_schema = CompanySchema()
 
@@ -11,15 +12,15 @@ class CompanyResource(Resource):
     def get(self, company_id):
         """ Receive a detail company information """
 
-        company = Company.query.get(company_id)
+        company = get_object_or_404(Company, company_id)
         return { 'company': single.dump(company).data }, 200
 
     @authenticate
     def put(self, company_id):
         """ Update existing company """
 
-        company = Company.query.get(company_id)
-        form = CompanyForm(obj=company, data=request.get_json())
+        company = get_object_or_404(Company, company_id)
+        form = CompanyForm(obj=company, params=request.get_json())
         if form.submit():
             return { 'company': single_schema.dump(company).data }, 200
         else:

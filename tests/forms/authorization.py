@@ -13,21 +13,21 @@ class AuthorizationFormTest(BaseTestCase):
     def test_success_form_valid(self):
         """ Test success form validation """
 
-        form = AuthorizationForm(data={
+        form = AuthorizationForm(params={
             'email': self.user.email,
             'password': '123456'
         })
-        self.assertTrue(form.validate())
+        self.assertTrue(form.is_valid())
 
     def test_failed_form_valid(self):
         """ Test failed form validation """
-        form = AuthorizationForm(data={})
-        self.assertFalse(form.validate())
+        form = AuthorizationForm(params={})
+        self.assertFalse(form.is_valid())
 
     def test_success_authorization(self):
         """ Test success authorization """
 
-        form = AuthorizationForm(data={
+        form = AuthorizationForm(params={
             'email': self.user.email,
             'password': '123456'
         })
@@ -37,7 +37,7 @@ class AuthorizationFormTest(BaseTestCase):
     def test_failed_authorization(self):
         """ Test failed authorization """
 
-        form = AuthorizationForm(data={
+        form = AuthorizationForm(params={
             'email': self.user.email,
             'password': ''
         })
@@ -47,7 +47,7 @@ class AuthorizationFormTest(BaseTestCase):
     def test_user_abascent(self):
         """ Test form errors if such user is not exists """
 
-        form = AuthorizationForm(data={
+        form = AuthorizationForm(params={
             'email': self.user.email,
             'password': 'example'
         })

@@ -86,3 +86,34 @@ class CompanyViewTest(BaseTestCase):
             headers={AUTH_HEADER: self.token}
         )
         assert res.status_code, 204
+
+    def test_failed_response_on_get_company_does_not_exist(self):
+        """ Test failed response for GET company if it does not exist """
+
+        res = self.client().get(
+            '/api/v1/companies/{}'.format(1050),
+            content_type='application/json',
+            headers={AUTH_HEADER: self.token}
+        )
+        assert res.status_code, 404
+
+    def test_failed_response_on_put_company_does_not_exist(self):
+        """ Test failed response for PUT company if it does not exist """
+
+        res = self.client().put(
+            '/api/v1/companies/{}'.format(1050),
+            data=json.dumps(None),
+            content_type='application/json',
+            headers={AUTH_HEADER: self.token}
+        )
+        assert res.status_code, 404
+
+    def test_failed_response_on_delete_company_does_not_exist(self):
+        """ Test failed response for DELETE company if it does not exist """
+
+        res = self.client().delete(
+            '/api/v1/companies/{}'.format(1050),
+            content_type='application/json',
+            headers={AUTH_HEADER: self.token}
+        )
+        assert res.status_code, 404

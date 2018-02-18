@@ -19,7 +19,7 @@ class CompaniesResource(Resource):
     def post(self):
         """ Creates new company """
 
-        form = CompanyForm(data=request.get_json())
+        form = CompanyForm(obj=Company(), params=request.get_json())
         if form.submit():
             return { 'company': single_schema.dump(form.object).data }, 200
         else:
