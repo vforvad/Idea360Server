@@ -14,7 +14,11 @@ services:
   idea360:
     image: vsokoltsov/idea360
     container_name: idea360
-    build: .
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - DEFAULT_REQUIREMENTS=development.txt
     command: bash -c "python manage.py runserver --host 0.0.0.0"
     env_file: ./.env
     volumes:
